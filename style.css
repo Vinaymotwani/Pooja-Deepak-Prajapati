@@ -1,6 +1,20 @@
 @import "tailwindcss";
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+
+    background: linear-gradient(
+        135deg,
+        #0a71cc,
+        #f70808
+    );
+
+    color: #222;
+    min-height: 100vh;
+}
 
 .hero-bg {
+  background-color: #0f172a;
   background: linear-gradient(rgba(15, 23, 42, 0.75), rgba(15, 23, 42, 0.75)), 
               url('https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
 }

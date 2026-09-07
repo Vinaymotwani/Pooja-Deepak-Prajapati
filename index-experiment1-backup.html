@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ulhasnagar Stays - Hotel Booking</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body class="bg-slate-100 text-gray-800 font-sans antialiased min-h-screen flex flex-col">
+
+  <!-- Navbar -->
+  <header class="bg-white/90 backdrop-blur-md shadow-sm sticky top-0 z-50">
+    <nav class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <div class="flex items-center space-x-2">
+        <span class="text-2xl font-black text-blue-600 tracking-wider">ULHASNAGAR STAYS</span>
+      </div>
+      <div class="hidden md:flex space-x-8 font-semibold text-gray-600">
+        <a href="#" class="text-blue-600 hover:text-blue-800 transition">Home</a>
+        <a href="#hotels" class="hover:text-blue-600 transition">Hotels</a>
+        <a href="#about" class="hover:text-blue-600 transition">About Us</a>
+        <a href="#contact" class="hover:text-blue-600 transition">Contact</a>
+      </div>
+      <div class="flex items-center space-x-4">
+        <button class="px-4 py-2 text-sm font-semibold text-blue-600 hover:text-blue-800">Login</button>
+        <button class="px-5 py-2 text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow transition">Register</button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-grow">
+    <!-- Hero Section -->
+    <section class="hero-bg text-white py-24 px-6 text-center relative">
+      <div class="max-w-4xl mx-auto">
+        <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-4 drop-shadow-md">
+          Book Top Hotels in Ulhasnagar
+        </h1>
+        <p class="text-lg md:text-xl text-gray-200 mb-10 max-w-2xl mx-auto">
+          Compare luxury stays, view direct Google Maps locations, and reserve room availability effortlessly.
+        </p>
+      </div>
+
+      <!-- Quick Search Bar Form -->
+      <div class="max-w-5xl mx-auto bg-white rounded-2xl shadow-2xl p-6 text-gray-800 -mb-36 relative z-10 border border-gray-100">
+        <form id="searchForm" class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
+          <div class="text-left">
+            <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Select Hotel</label>
+            <select id="hotelSelect" class="w-full border border-gray-300 rounded-lg p-3 bg-gray-50 text-sm focus:ring-2 focus:ring-blue-500 outline-none">
+              <option value="all">All Hotels</option>
+              <option value="mayur">Hotel Mayur</option>
+              <option value="jawahar">Hotel Jawahar</option>
+              <option value="sapphire">Hotel Sapphire Inn</option>
+              <option value="skygrand">Hotel Sky Grand Stays</option>
+              <option value="falcon">Hotel Falcon</option>
+              <option value="royal">Hotel Royal Inn</option>
+              <option value="praveen">Hotel Praveen International</option>
+            </select>
+          </div>
+          <div class="text-left">
+            <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Check-In</label>
+            <input type="date" id="checkIn" class="w-full border border-gray-300 rounded-lg p-3 bg-gray-50 text-sm focus:ring-2 focus:ring-blue-500 outline-none" required />
+          </div>
+          <div class="text-left">
+            <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Check-Out</label>
+            <input type="date" id="checkOut" class="w-full border border-gray-300 rounded-lg p-3 bg-gray-50 text-sm focus:ring-2 focus:ring-blue-500 outline-none" required />
+          </div>
+          <div>
+            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg shadow-lg hover:shadow-xl transition duration-200">
+              Search Availability
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- Hotels Grid Section -->
+    <section id="hotels" class="max-w-7xl mx-auto px-6 pt-48 pb-16">
+      <div class="mb-10 text-center">
+        <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900">Featured Hotels in Ulhasnagar</h2>
+        <p class="text-gray-500 mt-2">Select a hotel to reserve rooms or view its exact location on Google Maps</p>
+      </div>
+
+      <!-- Hotel Cards Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <!-- Hotel 1 -->
+        <div class="bg-white rounded-2xl shadow-md overflow-hidden border border-gray-100 transition hover:shadow-xl hover:-translate-y-1 flex flex-col justify-between">
+          <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=600&q=80" alt="Hotel Mayur" class="h-48 w-full object-cover">
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-3">
+              <span class="text-xs font-bold px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full">Available</span>
+              <span class="text-xl font-black text-blue-600">₹2,500<span class="text-xs text-gray-500 font-normal">/night</span></span>
+            </div>
+            <h3 class="text-xl font-bold text-gray-800 mb-2">Hotel Mayur</h3>
+            <p class="text-sm text-gray-600 mb-4">Comfortable stays with AC rooms, free Wi-Fi, and top-tier hospitality in Ulhasnagar.</p>
+            <a href="https://www.google.com/maps/search/?api=1&query=Hotel+Mayur+Ulhasnagar" target="_blank" class="inline-flex items-center text-xs font-bold text-blue-600 hover:text-blue-800 mb-4 bg-blue-50 px-3 py-1.5 rounded-md">
+              📍 Hotel Mayur - Location
+            </a>
+          </div>
+          <div class="p-6 pt-0 flex items-center justify-between text-xs text-gray-500 mt-auto border-t pt-4">
+            <span>Ulhasnagar</span>
+            <button class="book-btn bg-slate-900 hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold transition" data-room="Hotel Mayur">Book Now</button>
+          </div>
+        </div>
+
+        <!-- Hotel 2 -->
+        <div class="bg-white rounded-2xl shadow-md overflow-hidden border border-gray-100 transition hover:shadow-xl hover:-translate-y-1 flex flex-col justify-between">
+          <img src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=600&q=80" alt="Hotel Jawahar" class="h-48 w-full object-cover">
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-3">
+              <span class="text-xs font-bold px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full">Available</span>
+              <span class="text-xl font-black text-blue-600">₹3,000<span class="text-xs text-gray-500 font-normal">/night</span></span>
+            </div>
+            <h3 class="text-xl font-bold text-gray-800 mb-2">Hotel Jawahar</h3>
+            <p class="text-sm text-gray-600 mb-4">Centrally located hotel with modern amenities, room service, and fine dining options.</p>
+            <a href="https://www.google.com/maps/search/?api=1&query=Hotel+Jawahar+Ulhasnagar" target="_blank" class="inline-flex items-center text-xs font-bold text-blue-600 hover:text-blue-800 mb-4 bg-blue-50 px-3 py-1.5 rounded-md">
+              📍 Hotel Jawahar - Location
+            </a>
+          </div>
+          <div class="p-6 pt-0 flex items-center justify-between text-xs text-gray-500 mt-auto border-t pt-4">
+            <span>Ulhasnagar</span>
+            <button class="book-btn bg-slate-900 hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold transition" data-room="Hotel Jawahar">Book Now</button>
+          </div>
+        </div>
+
+        <!-- Hotel 3 -->
+        <div class="bg-white rounded-2xl shadow-md overflow-hidden border border-gray-100 transition hover:shadow-xl hover:-translate-y-1 flex flex-col justify-between">
+          <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=600&q=80" alt="Hotel Sapphire Inn" class="h-48 w-full object-cover">
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-3">
+              <span class="text-xs font-bold px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full">Available</span>
+              <span class="text-xl font-black text-blue-600">₹2,800<span class="text-xs text-gray-500 font-normal">/night</span></span>
+            </div>
+            <h3 class="text-xl font-bold text-gray-800 mb-2">Hotel Sapphire Inn</h3>
+            <p class="text-sm text-gray-600 mb-4">Premium accommodation featuring comfortable suites and quick access to transit hubs.</p>
+            <a href="https://www.google.com/maps/search/?api=1&query=Hotel+Sapphire+Inn+Ulhasnagar" target="_blank" class="inline-flex items-center text-xs font-bold text-blue-600 hover:text-blue-800 mb-4 bg-blue-50 px-3 py-1.5 rounded-md">
+              📍 Hotel Sapphire Inn - Location
+            </a>
+          </div>
+          <div class="p-6 pt-0 flex items-center justify-between text-xs text-gray-500 mt-auto border-t pt-4">
+            <span>Ulhasnagar</span>
+            <button class="book-btn bg-slate-900 hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold transition" data-room="Hotel Sapphire Inn">Book Now</button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-slate-900 text-gray-400 py-8 px-6 text-center border-t border-slate-800">
+    <p class="text-sm">&copy; 2026 Ulhasnagar Hotel Booking System. Built for FSD Experiment 1.</p>
+  </footer>
+
+  <script type="module" src="./main.js"></script>
+</body>
+</html>
