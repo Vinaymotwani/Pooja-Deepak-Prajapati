@@ -1,15 +1,17 @@
-import { useState } from 'react'
+import { useContext } from 'react'
+import BookingContext from '../context/BookingContext'
 
 function useBooking() {
-  const [bookingMessage, setBookingMessage] = useState('')
+  const { bookings, addBooking, removeBooking } = useContext(BookingContext)
 
   const bookRoom = (roomName) => {
-    setBookingMessage(`Booking initiated for ${roomName}!`)
+    addBooking(roomName)
   }
 
   return {
-    bookingMessage,
-    bookRoom
+    bookings,
+    bookRoom,
+    removeBooking
   }
 }
 

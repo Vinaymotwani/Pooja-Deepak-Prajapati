@@ -26,7 +26,7 @@ function App() {
     )
   }
 
-  const { bookingMessage, bookRoom } = useBooking()
+  const { bookingMessage, bookRoom, bookings, removeBooking } = useBooking()
 
   return (
     <div className="bg-slate-100 text-gray-800 font-sans antialiased min-h-screen flex flex-col">
@@ -186,6 +186,31 @@ function App() {
 
           </div>
 
+          {bookings.length > 0 && (
+            <div className="mb-6 bg-blue-100 text-blue-700 p-4 rounded-lg">
+              <h3 className="font-bold text-lg mb-2">
+                Current Bookings: {bookings.length}
+              </h3>
+
+              {bookings.map((booking) => (
+                <div
+                  key={booking.id}
+                  className="flex justify-between items-center bg-white p-3 rounded-lg mb-2"
+                >
+                  <span className="font-semibold">
+                    {booking.hotelName}
+                  </span>
+
+                  <button
+                    onClick={() => removeBooking(booking.id)}
+                    className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded"
+                  >
+                    Remove
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
           {bookingMessage && (
             <div className="mb-6 text-center bg-green-100 text-green-700 p-4 rounded-lg font-semibold">
               {bookingMessage}
@@ -300,3 +325,4 @@ function HotelCard({ image, name, price, description, location, onBook }) {
 }
 
 export default App
+
