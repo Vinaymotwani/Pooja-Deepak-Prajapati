@@ -244,7 +244,7 @@ function App() {
         onClick={async () => {
           try {
             const response = await fetch(
-              'http://localhost:5000/api/users/admin',
+              'http://localhost:5002/api/users/admin',
               {
                 headers: {
                   Authorization: `Bearer ${localStorage.getItem('authToken')}`,
@@ -474,5 +474,6 @@ function HotelCard({ image, name, price, description, location, onBook }) {
 }
 
 export default App
+
 
 
