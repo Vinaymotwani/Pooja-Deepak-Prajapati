@@ -30,7 +30,7 @@ export function UserProvider({ children }) {
         }
 
         setUser(data.user)
-      } catch (error) {
+      } catch {
         localStorage.removeItem('authToken')
         setToken(null)
         setUser(null)
@@ -104,4 +104,5 @@ export function UserProvider({ children }) {
 }
 
 export default UserContext
+
 
