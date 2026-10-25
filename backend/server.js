@@ -1,6 +1,8 @@
 ﻿require("dotenv").config();
 
 const express = require("express");
+const http = require("http");
+const { Server } = require("socket.io");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const helmet = require("helmet");
@@ -10,6 +12,37 @@ const hotelRoutes = require("./routes/hotelRoutes");
 const userRoutes = require("./routes/userRoutes");
 
 const app = express();
+const httpServer = http.createServer(app);
+
+const io = new Server(httpServer, {
+  cors: {
+    origin: process.env.CLIENT_ORIGIN || "http://localhost:5173",
+    methods: ["GET", "POST"]
+  }
+});
+
+io.on("connection", (socket) => {
+  console.log("Chat client connected:", socket.id);
+
+  socket.on("chatMessage", (data) => {
+    if (!data || typeof data.username !== "string" || typeof data.message !== "string") return;
+
+    const username = data.username.trim().slice(0, 30);
+    const message = data.message.trim().slice(0, 500);
+
+    if (!username || !message) return;
+
+    io.emit("chatMessage", {
+      username,
+      message,
+      timestamp: new Date().toISOString()
+    });
+  });
+
+  socket.on("disconnect", () => {
+    console.log("Chat client disconnected:", socket.id);
+  });
+});
 
 app.disable("x-powered-by");
 
@@ -85,7 +118,7 @@ async function startServer() {
 
   console.log("MongoDB Connected");
 
-  app.listen(PORT, () => {
+  httpServer.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
   });
 }

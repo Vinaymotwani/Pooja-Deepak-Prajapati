@@ -17,7 +17,7 @@ export function UserProvider({ children }) {
       }
 
       try {
-        const response = await fetch('http://localhost:5000/api/users/profile', {
+        const response = await fetch('http://localhost:5001/api/users/profile', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -43,7 +43,7 @@ export function UserProvider({ children }) {
   }, [token])
 
   const login = async (email, password) => {
-    const response = await fetch('http://localhost:5000/api/users/login', {
+    const response = await fetch('http://localhost:5001/api/users/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -65,7 +65,7 @@ export function UserProvider({ children }) {
   }
 
   const register = async (name, email, password) => {
-    const response = await fetch('http://localhost:5000/api/users/register', {
+    const response = await fetch('http://localhost:5001/api/users/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

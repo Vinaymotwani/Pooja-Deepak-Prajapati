@@ -1,6 +1,7 @@
 ﻿
 import { useState, useEffect, useContext } from 'react'
 import './App.css'
+import Chat from './components/Chat'
 import UserContext from './context/UserContext'
 import useBooking from './hooks/useBooking'
 
@@ -418,6 +419,7 @@ function App() {
           </div>
         </section>
       </main>
+      <Chat />
 
       <footer className="bg-slate-900 text-gray-400 py-8 px-6 text-center border-t border-slate-800">
         <p className="text-sm">
