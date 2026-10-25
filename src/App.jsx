@@ -1,4 +1,4 @@
-﻿
+
 import { useState, useEffect, useContext } from 'react'
 import './App.css'
 import Chat from './components/Chat'
@@ -244,7 +244,7 @@ function App() {
         onClick={async () => {
           try {
             const response = await fetch(
-              'http://localhost:5002/api/users/admin',
+              `${import.meta.env.VITE_API_URL}/api/users/admin`,
               {
                 headers: {
                   Authorization: `Bearer ${localStorage.getItem('authToken')}`,
