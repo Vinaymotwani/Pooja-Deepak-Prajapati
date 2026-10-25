@@ -1,4 +1,4 @@
-﻿require("dotenv").config();
+require("dotenv").config();
 
 const express = require("express");
 const http = require("http");
@@ -14,10 +14,18 @@ const userRoutes = require("./routes/userRoutes");
 const app = express();
 const httpServer = http.createServer(app);
 
-const io = new Server(httpServer, {
+const io = require('socket.io')(server, {
   cors: {
-    origin: process.env.CLIENT_ORIGIN || "http://localhost:5173",
-    methods: ["GET", "POST"]
+    origin: (origin, callback) => {
+      // Allows main site, preview domains (*.vercel.app), and local development
+      if (!origin || origin.endsWith('.vercel.app') || origin === process.env.CLIENT_ORIGIN) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
+    methods: ['GET', 'POST'],
+    credentials: true
   }
 });
 

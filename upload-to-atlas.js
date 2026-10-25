@@ -1,4 +1,4 @@
-﻿import { MongoClient } from "mongodb";
+import { MongoClient } from "mongodb";
 
 const LOCAL_URI = "mongodb://127.0.0.1:27017";
 const DATABASE = "hotelBooking";
