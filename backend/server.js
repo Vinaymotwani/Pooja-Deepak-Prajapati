@@ -14,17 +14,11 @@ const userRoutes = require("./routes/userRoutes");
 const app = express();
 const httpServer = http.createServer(app);
 
+// Initialize Socket.io with dynamic CORS support
 const io = new Server(httpServer, {
   cors: {
-    origin: (origin, callback) => {
-      // Allows main site, preview domains (*.vercel.app), and local development
-      if (!origin || origin.endsWith('.vercel.app') || origin === process.env.CLIENT_ORIGIN) {
-        callback(null, true);
-      } else {
-        callback(new Error('Not allowed by CORS'));
-      }
-    },
-    methods: ['GET', 'POST'],
+    origin: true,
+    methods: ["GET", "POST"],
     credentials: true
   }
 });
@@ -55,9 +49,11 @@ io.on("connection", (socket) => {
 app.disable("x-powered-by");
 app.use(helmet());
 
+// Apply Express CORS middleware to dynamically reflect origins
 app.use(
   cors({
-    origin: process.env.CLIENT_ORIGIN || "http://localhost:5173"
+    origin: true,
+    credentials: true
   })
 );
 
