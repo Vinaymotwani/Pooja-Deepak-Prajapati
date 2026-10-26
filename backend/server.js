@@ -14,27 +14,46 @@ const userRoutes = require("./routes/userRoutes");
 const app = express();
 const httpServer = http.createServer(app);
 
-// Disable X-Powered-By
 app.disable("x-powered-by");
 
-// Configure Helmet with Cross-Origin Resource Policy allowed
 app.use(
   helmet({
     crossOriginResourcePolicy: { policy: "cross-origin" }
   })
 );
 
-// Configure CORS middleware globally for Express
+// Native OPTIONS preflight handler to bypass proxy stripping
+app.options("*", (req, res) => {
+  res.setHeader("Access-Control-Allow-Origin", req.headers.origin || "*");
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+  res.sendStatus(204);
+});
+
+// Dynamic CORS middleware
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+  if (origin) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+  }
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+  );
+  next();
+});
+
 app.use(
   cors({
-    origin: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
+    origin: (origin, callback) => callback(null, true),
     credentials: true
   })
 );
 
-// Initialize Socket.io with matching permissive CORS options
+// Socket.io setup allowing both WebSocket and HTTP Polling
 const io = new Server(httpServer, {
   cors: {
     origin: (origin, callback) => callback(null, true),
@@ -42,7 +61,7 @@ const io = new Server(httpServer, {
     allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
     credentials: true
   },
-  transports: ["polling", "websocket"],
+  transports: ["websocket", "polling"],
   allowEIO3: true
 });
 
