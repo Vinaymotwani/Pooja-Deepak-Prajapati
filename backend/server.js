@@ -14,19 +14,36 @@ const userRoutes = require("./routes/userRoutes");
 const app = express();
 const httpServer = http.createServer(app);
 
-// Explicit CORS origin handling function
-const checkOrigin = (origin, callback) => {
-  callback(null, true);
-};
+// Disable X-Powered-By
+app.disable("x-powered-by");
 
-// Initialize Socket.io with dynamic CORS
+// Configure Helmet with Cross-Origin Resource Policy allowed
+app.use(
+  helmet({
+    crossOriginResourcePolicy: { policy: "cross-origin" }
+  })
+);
+
+// Configure CORS middleware globally for Express
+app.use(
+  cors({
+    origin: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
+    credentials: true
+  })
+);
+
+// Initialize Socket.io with matching permissive CORS options
 const io = new Server(httpServer, {
   cors: {
-    origin: checkOrigin,
+    origin: (origin, callback) => callback(null, true),
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
+    allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
     credentials: true
-  }
+  },
+  transports: ["polling", "websocket"],
+  allowEIO3: true
 });
 
 io.on("connection", (socket) => {
@@ -51,19 +68,6 @@ io.on("connection", (socket) => {
     console.log("Chat client disconnected:", socket.id);
   });
 });
-
-app.disable("x-powered-by");
-app.use(helmet());
-
-// Apply Express CORS middleware
-app.use(
-  cors({
-    origin: checkOrigin,
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-    credentials: true
-  })
-);
 
 app.use(express.json({ limit: "10kb" }));
 
