@@ -22,42 +22,18 @@ app.use(
   })
 );
 
-// Express middleware for handling dynamic origins and OPTIONS preflight (Express 5 safe)
-app.use((req, res, next) => {
-  const origin = req.headers.origin;
-  if (origin) {
-    res.setHeader("Access-Control-Allow-Origin", origin);
-  } else {
-    res.setHeader("Access-Control-Allow-Origin", "*");
-  }
-  res.setHeader("Access-Control-Allow-Credentials", "true");
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-  res.setHeader(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-  );
+// Standard dynamic CORS middleware: echoes any incoming origin automatically
+const corsOptions = {
+  origin: (origin, callback) => callback(null, true),
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Origin", "X-Requested-With", "Content-Type", "Accept", "Authorization"]
+};
 
-  if (req.method === "OPTIONS") {
-    return res.sendStatus(204);
-  }
-  next();
-});
+app.use(cors(corsOptions));
 
-app.use(
-  cors({
-    origin: (origin, callback) => callback(null, true),
-    credentials: true
-  })
-);
-
-// Socket.io initialization with matching permissive origin reflection
 const io = new Server(httpServer, {
-  cors: {
-    origin: (origin, callback) => callback(null, true),
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
-    credentials: true
-  },
+  cors: corsOptions,
   transports: ["websocket", "polling"],
   allowEIO3: true
 });
