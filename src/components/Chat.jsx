@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+﻿import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
+import API_URL from "../config";
 
-const socket = io(import.meta.env.VITE_API_URL, {
+const socket = io(API_URL, {
   autoConnect: false
 });
 
@@ -102,5 +103,6 @@ function Chat() {
 }
 
 export default Chat;
+
 
 

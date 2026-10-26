@@ -1,5 +1,6 @@
-
+﻿
 import { createContext, useEffect, useState } from 'react'
+import API_URL from '../config'
 
 const UserContext = createContext()
 
@@ -17,7 +18,7 @@ export function UserProvider({ children }) {
       }
 
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/users/profile`, {
+        const response = await fetch(`${API_URL}/api/users/profile`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -43,7 +44,7 @@ export function UserProvider({ children }) {
   }, [token])
 
   const login = async (email, password) => {
-    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/users/login`, {
+    const response = await fetch(`${API_URL}/api/users/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -65,7 +66,7 @@ export function UserProvider({ children }) {
   }
 
   const register = async (name, email, password) => {
-    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/users/register`, {
+    const response = await fetch(`${API_URL}/api/users/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -104,5 +105,6 @@ export function UserProvider({ children }) {
 }
 
 export default UserContext
+
 
 

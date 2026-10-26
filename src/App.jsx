@@ -1,9 +1,10 @@
-
+﻿
 import { useState, useEffect, useContext } from 'react'
 import './App.css'
 import Chat from './components/Chat'
 import UserContext from './context/UserContext'
 import useBooking from './hooks/useBooking'
+import API_URL from './config'
 
 function App() {
   const { user, login, register, logout, authLoading } = useContext(UserContext)
@@ -244,7 +245,7 @@ function App() {
         onClick={async () => {
           try {
             const response = await fetch(
-              `${import.meta.env.VITE_API_URL}/api/users/admin`,
+              `${API_URL}/api/users/admin`,
               {
                 headers: {
                   Authorization: `Bearer ${localStorage.getItem('authToken')}`,
@@ -393,7 +394,7 @@ function App() {
             <HotelCard
               image="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=600&q=80"
               name="Hotel Mayur"
-              price="₹2,500"
+              price="â‚¹2,500"
               description="Comfortable stays with AC rooms, free Wi-Fi, and top-tier hospitality in Ulhasnagar."
               location="Hotel+Mayur+Ulhasnagar"
               onBook={bookRoom}
@@ -402,7 +403,7 @@ function App() {
             <HotelCard
               image="https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=600&q=80"
               name="Hotel Jawahar"
-              price="₹3,000"
+              price="â‚¹3,000"
               description="Centrally located hotel with modern amenities, room service, and fine dining options."
               location="Hotel+Jawahar+Ulhasnagar"
               onBook={bookRoom}
@@ -411,7 +412,7 @@ function App() {
             <HotelCard
               image="https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=600&q=80"
               name="Hotel Sapphire Inn"
-              price="₹2,800"
+              price="â‚¹2,800"
               description="Premium accommodation featuring comfortable suites and quick access to transit hubs."
               location="Hotel+Sapphire+Inn+Ulhasnagar"
               onBook={bookRoom}
@@ -423,7 +424,7 @@ function App() {
 
       <footer className="bg-slate-900 text-gray-400 py-8 px-6 text-center border-t border-slate-800">
         <p className="text-sm">
-          © 2026 Ulhasnagar Hotel Booking System. Built for FSD Experiment 5.
+          Â© 2026 Ulhasnagar Hotel Booking System. Built for FSD Experiment 5.
         </p>
       </footer>
     </div>
@@ -456,7 +457,7 @@ function HotelCard({ image, name, price, description, location, onBook }) {
           rel="noreferrer"
           className="inline-flex items-center text-xs font-bold text-blue-600 hover:text-blue-800 mb-4 bg-blue-50 px-3 py-1.5 rounded-md"
         >
-          📍 {name} - Location
+          ðŸ“ {name} - Location
         </a>
       </div>
 
@@ -474,6 +475,7 @@ function HotelCard({ image, name, price, description, location, onBook }) {
 }
 
 export default App
+
 
 
 
