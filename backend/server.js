@@ -14,11 +14,17 @@ const userRoutes = require("./routes/userRoutes");
 const app = express();
 const httpServer = http.createServer(app);
 
-// Initialize Socket.io with dynamic CORS support
+// Explicit CORS origin handling function
+const checkOrigin = (origin, callback) => {
+  callback(null, true);
+};
+
+// Initialize Socket.io with dynamic CORS
 const io = new Server(httpServer, {
   cors: {
-    origin: true,
-    methods: ["GET", "POST"],
+    origin: checkOrigin,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true
   }
 });
@@ -49,10 +55,12 @@ io.on("connection", (socket) => {
 app.disable("x-powered-by");
 app.use(helmet());
 
-// Apply Express CORS middleware to dynamically reflect origins
+// Apply Express CORS middleware
 app.use(
   cors({
-    origin: true,
+    origin: checkOrigin,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true
   })
 );
@@ -77,20 +85,15 @@ app.get("/", (req, res) => {
   });
 });
 
-// Experiment 4: Existing hotel CRUD API
 app.use("/api/hotels", hotelRoutes);
-
-// Experiment 5: Secure user authentication API
 app.use("/api/users", userRoutes);
 
-// Handle requests to unknown routes
 app.use((req, res) => {
   res.status(404).json({
     message: "Route not found"
   });
 });
 
-// Centralized error handler
 app.use((error, req, res, next) => {
   console.error("Request error:", error.message);
 
