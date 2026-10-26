@@ -22,20 +22,13 @@ app.use(
   })
 );
 
-// Native OPTIONS preflight handler to bypass proxy stripping
-app.options("*", (req, res) => {
-  res.setHeader("Access-Control-Allow-Origin", req.headers.origin || "*");
-  res.setHeader("Access-Control-Allow-Credentials", "true");
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-  res.sendStatus(204);
-});
-
-// Dynamic CORS middleware
+// Explicit dynamic CORS handling for Express requests & OPTIONS preflights
 app.use((req, res, next) => {
   const origin = req.headers.origin;
   if (origin) {
     res.setHeader("Access-Control-Allow-Origin", origin);
+  } else {
+    res.setHeader("Access-Control-Allow-Origin", "*");
   }
   res.setHeader("Access-Control-Allow-Credentials", "true");
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
@@ -43,6 +36,10 @@ app.use((req, res, next) => {
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept, Authorization"
   );
+
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(204);
+  }
   next();
 });
 
@@ -53,7 +50,7 @@ app.use(
   })
 );
 
-// Socket.io setup allowing both WebSocket and HTTP Polling
+// Socket.io initialization with matching permissive origin reflection
 const io = new Server(httpServer, {
   cors: {
     origin: (origin, callback) => callback(null, true),
