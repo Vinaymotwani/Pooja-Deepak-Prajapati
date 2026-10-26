@@ -22,7 +22,7 @@ app.use(
   })
 );
 
-// Explicit dynamic CORS handling for Express requests & OPTIONS preflights
+// Express middleware for handling dynamic origins and OPTIONS preflight (Express 5 safe)
 app.use((req, res, next) => {
   const origin = req.headers.origin;
   if (origin) {
