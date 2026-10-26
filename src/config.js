@@ -1,9 +1,3 @@
-﻿const apiUrl = import.meta.env.VITE_API_URL?.trim().replace(/\/+$/, "");
+﻿const API_URL = "https://hotel-booking-backend002.onrender.com";
 
-if (!apiUrl) {
-  throw new Error(
-    "VITE_API_URL is missing. Configure it before building the frontend."
-  );
-}
-
-export default apiUrl;
+export default API_URL;
