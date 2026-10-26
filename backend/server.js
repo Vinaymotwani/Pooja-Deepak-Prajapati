@@ -14,7 +14,7 @@ const userRoutes = require("./routes/userRoutes");
 const app = express();
 const httpServer = http.createServer(app);
 
-const io = require('socket.io')(server, {
+const io = new Server(httpServer, {
   cors: {
     origin: (origin, callback) => {
       // Allows main site, preview domains (*.vercel.app), and local development
@@ -53,7 +53,6 @@ io.on("connection", (socket) => {
 });
 
 app.disable("x-powered-by");
-
 app.use(helmet());
 
 app.use(
